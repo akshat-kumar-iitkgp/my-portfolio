@@ -596,14 +596,65 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        .hamburger {
+            display: none;
+            font-size: 2rem;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        nav.scrolled .hamburger {
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                right: 20px;
+                background: white;
+                flex-direction: column;
+                width: 200px;
+                padding: 1rem;
+                border-radius: 10px;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+                z-index: 1001;
+            }
+
+            .nav-links a {
+                color: #333 !important;
+                padding: 0.75rem 1rem;
+                border-radius: 8px;
+            }
+
+            .nav-links a:hover {
+                background: rgba(102, 126, 234, 0.1);
+            }
+
+            .nav-links.show {
+                display: flex;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
+      <!-- Navigation -->
     <nav id="navbar">
         <div class="container">
             <div class="nav-container">
                 <a href="#home" class="logo">Portfolio</a>
+                
+                <!-- HAMBURGER BUTTON -->
+                <button class="hamburger" id="hamburger">☰</button>
+
                 <ul class="nav-links">
                     <li><a href="#home">Home</a></li>
                     <li><a href="#about">About</a></li>
@@ -809,7 +860,6 @@
             </div>
         </div>
     </section>
-
     <script>
         // Navbar scroll effect
         window.addEventListener('scroll', function() {
@@ -832,6 +882,8 @@
                         block: 'start'
                     });
                 }
+                // Close nav on mobile after clicking a link
+                document.querySelector('.nav-links').classList.remove('show');
             });
         });
 
@@ -870,5 +922,13 @@
                 subtitleElement.style.opacity = '1';
             }, 300);
         }, 3000);
+
+        // Hamburger toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+        });
     </script>
 </body>
